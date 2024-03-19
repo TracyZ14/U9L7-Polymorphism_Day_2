@@ -78,7 +78,7 @@ public class GridGame
         {
             for(Space symbol : row)
             {
-                System.out.print(symbol);
+                System.out.print(symbol.getSymbol());
             }
             System.out.println();
         }
@@ -96,8 +96,39 @@ public class GridGame
         // if player moves to a position occupied by a Treasure, add its point value to the players score,
         // and replace that element with a Space object (with "_" symbol).
         // if the player reaches the goal, end the game and print their final score and the number of moves it took
-
-
-
+        printBoard();
+        boolean reachedGoal = false;
+        while(!reachedGoal)
+        {
+            int playerRow = -1;
+            int playerColumn = -1;
+            boolean foundPosition = false;
+            for(int row = 0; (row < 8) && (!foundPosition); row++)
+            {
+                for(int column = 0; (column < 8) && (!foundPosition); column++)
+                {
+                    String currentSymbol = board[row][column].getSymbol();
+                    if(currentSymbol.equals(player.getSymbol()))
+                    {
+                        playerRow = row;
+                        playerColumn = column;
+                        foundPosition = true;
+                    }
+                }
+            }
+            boolean isInBounds = false;
+            while(!isInBounds)
+            {
+                System.out.println("Enter W, A, S, D: ");
+                String direction = scanner.nextLine();
+                int newPlayerRow = playerRow;
+                int newPlayerColumn = playerColumn;
+                isInBounds = true;
+                if((direction.equals("W")) && ((newPlayerColumn - 1) < 0))
+                {
+                    isInBounds = false;
+                }
+            }
+        }
     }
 }
