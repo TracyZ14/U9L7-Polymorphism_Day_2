@@ -117,18 +117,40 @@ public class GridGame
                 }
             }
             boolean isInBounds = false;
+            int newPlayerRow = playerRow;
+            int newPlayerColumn = playerColumn;
             while(!isInBounds)
             {
                 System.out.println("Enter W, A, S, D: ");
                 String direction = scanner.nextLine();
-                int newPlayerRow = playerRow;
-                int newPlayerColumn = playerColumn;
                 isInBounds = true;
-                if((direction.equals("W")) && ((newPlayerColumn - 1) < 0))
+                if((direction.equals("W")) && ((newPlayerRow - 1) >= 0))
                 {
+                    newPlayerRow--;
+                }
+                else if((direction.equals("A")) && ((newPlayerColumn - 1) >= 0))
+                {
+                    newPlayerColumn--;
+                }
+                else if((direction.equals("S")) && ((newPlayerRow + 1) < 8))
+                {
+                    newPlayerRow++;
+                }
+                else if((direction.equals("D")) && (( newPlayerColumn + 1) < 8))
+                {
+                    isInBounds = false;
+                    newPlayerColumn++;
+                }
+                else
+                {
+                    System.out.println("You will go out of bounds!");
                     isInBounds = false;
                 }
             }
+            Space empty = new Space("_");
+            board[playerRow][playerColumn] = empty;
+            board[newPlayerRow][newPlayerColumn] = player;
+            printBoard();
         }
     }
 }
